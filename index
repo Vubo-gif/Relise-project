@@ -1,0 +1,279 @@
+import './styles.css';
+
+export default function App() {
+  return (
+    <div className="comic-shop">
+      {/* Navigation */}
+      <nav className="navbar">
+        <div className="nav-container">
+          <div className="logo">
+            <span className="logo-text">COMIC</span>
+            <span className="logo-accent">VERSE</span>
+          </div>
+          <ul className="nav-menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#comics">Comics</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="hero" id="home">
+        <div className="hero-content">
+          <div className="hero-text">
+            <h1 className="hero-title">
+              <span className="hero-title-line">Dive Into</span>
+              <span className="hero-title-line accent">Epic Stories</span>
+            </h1>
+            <p className="hero-description">
+              Your ultimate destination for comics, manga, and graphic novels. 
+              Discover rare collectibles and latest releases.
+            </p>
+            <div className="hero-buttons">
+              <a href="#comics" className="btn btn-primary">Explore Comics</a>
+              <a href="#about" className="btn btn-secondary">Learn More</a>
+            </div>
+          </div>
+          <div className="hero-image">
+            <div className="hero-image-wrapper">
+              <img 
+                src="https://images.unsplash.com/photo-1588497859490-85d1c17db96d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb21pYyUyMGJvb2tzJTIwY29sb3JmdWx8ZW58MXx8fHwxNzY2MjE5OTAwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" 
+                alt="Comic Books"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Comics */}
+      <section className="featured" id="comics">
+        <div className="section-container">
+          <div className="section-header">
+            <h2 className="section-title">Featured Comics</h2>
+            <p className="section-subtitle">Hand-picked selections from our latest arrivals</p>
+          </div>
+          
+          <div className="comics-grid">
+            <div className="comic-card">
+              <div className="comic-image">
+                <img 
+                  src="https://images.unsplash.com/photo-1709406454144-ebf8352d7031?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdXBlcmhlcm8lMjBhcnR3b3JrfGVufDF8fHx8MTc2NjIxOTkwMHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" 
+                  alt="Superhero Comics"
+                />
+                <div className="comic-badge">New</div>
+              </div>
+              <div className="comic-info">
+                <h3 className="comic-title">The Sentinel Chronicles</h3>
+                <p className="comic-author">By Alex Morrison</p>
+                <div className="comic-footer">
+                  <span className="comic-price">$24.99</span>
+                  <span className="comic-rating">★★★★★</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="comic-card">
+              <div className="comic-image">
+                <img 
+                  src="https://images.unsplash.com/photo-1744412161702-dcfd3bea6845?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYW5nYSUyMGJvb2tzfGVufDF8fHx8MTc2NjIxNTYxNHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" 
+                  alt="Manga"
+                />
+                <div className="comic-badge hot">Hot</div>
+              </div>
+              <div className="comic-info">
+                <h3 className="comic-title">Shadow Blade Academy</h3>
+                <p className="comic-author">By Yuki Tanaka</p>
+                <div className="comic-footer">
+                  <span className="comic-price">$19.99</span>
+                  <span className="comic-rating">★★★★☆</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="comic-card">
+              <div className="comic-image">
+                <img 
+                  src="https://images.unsplash.com/photo-1625000910270-81c3562056ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2aW50YWdlJTIwY29taWNzfGVufDF8fHx8MTc2NjIxOTkwMHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" 
+                  alt="Vintage Comics"
+                />
+                <div className="comic-badge rare">Rare</div>
+              </div>
+              <div className="comic-info">
+                <h3 className="comic-title">Golden Age Heroes #1</h3>
+                <p className="comic-author">By Stan Clarke</p>
+                <div className="comic-footer">
+                  <span className="comic-price">$149.99</span>
+                  <span className="comic-rating">★★★★★</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="comic-card">
+              <div className="comic-image">
+                <img 
+                  src="https://images.unsplash.com/photo-1711035964805-b71d85ee3ed2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxncmFwaGljJTIwbm92ZWwlMjBhcnR8ZW58MXx8fHwxNzY2MTQyNzEwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" 
+                  alt="Graphic Novel"
+                />
+              </div>
+              <div className="comic-info">
+                <h3 className="comic-title">Neon Dystopia</h3>
+                <p className="comic-author">By Maya Chen</p>
+                <div className="comic-footer">
+                  <span className="comic-price">$29.99</span>
+                  <span className="comic-rating">★★★★★</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Categories */}
+      <section className="categories" id="categories">
+        <div className="section-container">
+          <div className="section-header">
+            <h2 className="section-title">Browse by Category</h2>
+            <p className="section-subtitle">Find your favorite genre</p>
+          </div>
+
+          <div className="category-grid">
+            <div className="category-card">
+              <div className="category-icon">🦸</div>
+              <h3>Superhero</h3>
+              <p>Epic adventures and legendary heroes</p>
+            </div>
+
+            <div className="category-card">
+              <div className="category-icon">🗾</div>
+              <h3>Manga</h3>
+              <p>Japanese comics and graphic novels</p>
+            </div>
+
+            <div className="category-card">
+              <div className="category-icon">🌌</div>
+              <h3>Sci-Fi</h3>
+              <p>Futuristic tales and space odysseys</p>
+            </div>
+
+            <div className="category-card">
+              <div className="category-icon">🐉</div>
+              <h3>Fantasy</h3>
+              <p>Magical realms and mythical creatures</p>
+            </div>
+
+            <div className="category-card">
+              <div className="category-icon">🔍</div>
+              <h3>Mystery</h3>
+              <p>Thrilling detective stories</p>
+            </div>
+
+            <div className="category-card">
+              <div className="category-icon">💀</div>
+              <h3>Horror</h3>
+              <p>Dark and spine-chilling tales</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section className="about" id="about">
+        <div className="about-container">
+          <div className="about-image">
+            <img 
+              src="https://images.unsplash.com/photo-1698177077434-17523aea69c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb21pYyUyMHN0b3JlJTIwc2hlbHZlc3xlbnwxfHx8fDE3NjYyMjExOTB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" 
+              alt="Comic Store"
+            />
+          </div>
+          <div className="about-content">
+            <h2>About ComicVerse</h2>
+            <p>
+              Since 1995, ComicVerse has been the premier destination for comic book 
+              enthusiasts, collectors, and casual readers alike. Our passion for 
+              storytelling through sequential art drives everything we do.
+            </p>
+            <p>
+              We curate an extensive collection ranging from vintage classics to 
+              the hottest new releases. Whether you're hunting for that elusive 
+              first edition or discovering your next favorite series, we're here 
+              to help you on your journey.
+            </p>
+            <div className="stats">
+              <div className="stat">
+                <div className="stat-number">10,000+</div>
+                <div className="stat-label">Comics in Stock</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">28</div>
+                <div className="stat-label">Years in Business</div>
+              </div>
+              <div className="stat">
+                <div className="stat-number">5,000+</div>
+                <div className="stat-label">Happy Customers</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <section className="newsletter">
+        <div className="newsletter-container">
+          <h2>Join Our Comic Community</h2>
+          <p>Get exclusive deals, new arrivals, and comic news delivered to your inbox</p>
+          <div className="newsletter-form">
+            <input type="email" placeholder="Enter your email address" />
+            <button className="btn btn-primary">Subscribe</button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="footer" id="contact">
+        <div className="footer-container">
+          <div className="footer-section">
+            <h3>ComicVerse</h3>
+            <p>Your gateway to infinite worlds of imagination and adventure.</p>
+          </div>
+          
+          <div className="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#comics">Comics</a></li>
+              <li><a href="#categories">Categories</a></li>
+              <li><a href="#about">About Us</a></li>
+            </ul>
+          </div>
+          
+          <div className="footer-section">
+            <h4>Shop</h4>
+            <ul>
+              <li><a href="#new">New Releases</a></li>
+              <li><a href="#bestsellers">Bestsellers</a></li>
+              <li><a href="#rare">Rare Finds</a></li>
+              <li><a href="#preorder">Pre-Orders</a></li>
+            </ul>
+          </div>
+          
+          <div className="footer-section">
+            <h4>Contact</h4>
+            <ul>
+              <li>123 Comic Street</li>
+              <li>New York, NY 10001</li>
+              <li>info@comicverse.com</li>
+              <li>(555) 123-4567</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div className="footer-bottom">
+          <p>&copy; 2024 ComicVerse. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
