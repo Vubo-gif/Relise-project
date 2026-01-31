@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comics - ComicVerse</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0a0a0a;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    .navbar {
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 2px solid #1a1a1a;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .logo-text {
+      color: #ffffff;
+    }
+
+    .logo-accent {
+      color: #ff1744;
+    }
+
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .nav-menu a {
+      color: #b0b0b0;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      color: #ff1744;
+    }
+
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #ff1744;
+      transition: width 0.3s ease;
+    }
+
+    .nav-menu a:hover::after,
+    .nav-menu a.active::after {
+      width: 100%;
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav-icon {
+      position: relative;
+      cursor: pointer;
+      color: #b0b0b0;
+      transition: color 0.3s ease;
+      font-size: 1.3rem;
+    }
+
+    .nav-icon:hover {
+      color: #ff1744;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ff1744;
+      color: #ffffff;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    /* Page Header */
+    .page-header {
+      background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+      border-bottom: 2px solid #1a1a1a;
+    }
+
+    .page-title {
+      font-size: 3.5rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    .page-title .accent {
+      color: #ff1744;
+    }
+
+    .page-description {
+      font-size: 1.2rem;
+      color: #b0b0b0;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Filter Section */
+    .filter-section {
+      background: #0f0f0f;
+      padding: 2rem;
+      border-bottom: 2px solid #1a1a1a;
+    }
+
+    .filter-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .filter-label {
+      color: #b0b0b0;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .filter-select {
+      padding: 0.7rem 1.2rem;
+      background: #1a1a1a;
+      color: #ffffff;
+      border: 1px solid #2a2a2a;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+    }
+
+    .filter-select:hover {
+      border-color: #ff1744;
+    }
+
+    .search-box {
+      flex: 1;
+      max-width: 400px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.7rem 1.2rem;
+      background: #1a1a1a;
+      color: #ffffff;
+      border: 1px solid #2a2a2a;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: #ff1744;
+    }
+
+    .search-input::placeholder {
+      color: #808080;
+    }
+
+    /* Comics Grid */
+    .comics-section {
+      padding: 4rem 2rem;
+      background: #0a0a0a;
+    }
+
+    .section-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .comics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .comic-card {
+      background: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .comic-card:hover {
+      transform: translateY(-10px);
+      border-color: #ff1744;
+      box-shadow: 0 20px 40px rgba(255, 23, 68, 0.2);
+    }
+
+    .comic-image {
+      position: relative;
+      overflow: hidden;
+      height: 350px;
+    }
+
+    .comic-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .comic-card:hover .comic-image img {
+      transform: scale(1.1);
+    }
+
+    .comic-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #ff1744;
+      color: #ffffff;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .comic-badge.hot {
+      background: #ff5722;
+    }
+
+    .comic-badge.rare {
+      background: #ffc107;
+      color: #0a0a0a;
+    }
+
+    .comic-badge.sale {
+      background: #4caf50;
+    }
+
+    .comic-info {
+      padding: 1.5rem;
+    }
+
+    .comic-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
+
+    .comic-author {
+      font-size: 0.9rem;
+      color: #808080;
+      margin-bottom: 0.5rem;
+    }
+
+    .comic-genre {
+      display: inline-block;
+      background: rgba(255, 23, 68, 0.2);
+      color: #ff1744;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .comic-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .comic-price {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: #ff1744;
+    }
+
+    .comic-rating {
+      color: #ffc107;
+      font-size: 0.9rem;
+    }
+
+    .add-to-cart-btn {
+      width: 100%;
+      padding: 0.8rem;
+      background: #ff1744;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .add-to-cart-btn:hover {
+      background: #f50057;
+    }
+
+    /* Footer */
+    .footer {
+      background: #0a0a0a;
+      border-top: 2px solid #1a1a1a;
+      padding: 2rem;
+      text-align: center;
+      color: #808080;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-box {
+        max-width: 100%;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+      }
+
+      .comics-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-text">COMIC</span>
+        <span class="logo-accent">VERSE</span>
+      </a>
+      <div class="nav-center">
+        <ul class="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="comics.html" class="active">Comics</a></li>
+          <li><a href="index.html#categories">Categories</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="nav-icons">
+        <div class="nav-icon" id="accountIcon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <div class="nav-icon" id="cartIcon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <h1 class="page-title">Our <span class="accent">Comics</span> Collection</h1>
+    <p class="page-description">Explore our extensive library of comics, manga, and graphic novels from around the world</p>
+  </section>
+
+  <!-- Filter Section -->
+  <section class="filter-section">
+    <div class="filter-container">
+      <div class="filter-group">
+        <span class="filter-label">Genre:</span>
+        <select class="filter-select" id="genreFilter">
+          <option value="all">All Genres</option>
+          <option value="superhero">Superhero</option>
+          <option value="manga">Manga</option>
+          <option value="scifi">Sci-Fi</option>
+          <option value="fantasy">Fantasy</option>
+          <option value="horror">Horror</option>
+          <option value="mystery">Mystery</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">Sort By:</span>
+        <select class="filter-select" id="sortFilter">
+          <option value="featured">Featured</option>
+          <option value="newest">Newest</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="rating">Highest Rated</option>
+        </select>
+      </div>
+
+      <div class="search-box">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search comics...">
+      </div>
+    </div>
+  </section>
+
+  <!-- Comics Grid -->
+  <section class="comics-section">
+    <div class="section-container">
+      <div class="comics-grid" id="comicsGrid">
+        <!-- Comics will be dynamically inserted here by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2024 ComicVerse. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Comics data
+    const comicsData = [
+      {
+        title: "The Sentinel Chronicles",
+        author: "Alex Morrison",
+        genre: "superhero",
+        price: 24.99,
+        rating: 5,
+        badge: "New",
+        image: "https://images.unsplash.com/photo-1709406454144-ebf8352d7031?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdXBlcmhlcm8lMjBhcnR3b3JrfGVufDF8fHx8MTc2NjIxOTkwMHww&ixlib=rb-4.1.0&q=80&w=1080"
+      },
+      {
+        title: "Shadow Blade Academy",
+        author: "Yuki Tanaka",
+        genre: "manga",
+        price: 19.99,
+        rating: 4,
+        badge: "Hot",
+        image: "https://images.unsplash.com/photo-1744412161702-dcfd3bea6845?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYW5nYSUyMGJvb2tzfGVufDF8fHx8MTc2NjIxNTYxNHww&ixlib=rb-4.1.0&q=80&w=1080"
+      },
+      {
+        title: "Golden Age Heroes #1",
+        author: "Stan Clarke",
+        genre: "superhero",
+        price: 149.99,
+        rating: 5,
+        badge: "Rare",
+        image: "https://images.unsplash.com/photo-1625000910270-81c3562056ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2aW50YWdlJTIwY29taWNzfGVufDF8fHx8MTc2NjIxOTkwMHww&ixlib=rb-4.1.0&q=80&w=1080"
+      },
+      {
+        title: "Neon Dystopia",
+        author: "Maya Chen",
+        genre: "scifi",
+        price: 29.99,
+        rating: 5,
+        badge: null,
+        image: "https://images.unsplash.com/photo-1711035964805-b71d85ee3ed2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxncmFwaGljJTIwbm92ZWwlMjBhcnR8ZW58MXx8fHwxNzY2MTQyNzEwfDA&ixlib=rb-4.1.0&q=80&w=1080"
+      },
+      {
+        title: "Dragon's Legacy",
+        author: "Sarah Knight",
+        genre: "fantasy",
+        price: 34.99,
+        rating: 5,
+        badge: "New",
+        image: "https://images.unsplash.com/photo-1532012197267-da84d127e765?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "Midnight Detective",
+        author: "James Noir",
+        genre: "mystery",
+        price: 22.99,
+        rating: 4,
+        badge: null,
+        image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "Cosmic Guardians Vol. 2",
+        author: "Lisa Star",
+        genre: "scifi",
+        price: 27.99,
+        rating: 5,
+        badge: "Hot",
+        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "Samurai's Oath",
+        author: "Kenji Yamamoto",
+        genre: "manga",
+        price: 18.99,
+        rating: 5,
+        badge: null,
+        image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "The Haunted Manor",
+        author: "Edgar Grimm",
+        genre: "horror",
+        price: 25.99,
+        rating: 4,
+        badge: "Sale",
+        image: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "Thunder Strike",
+        author: "Mike Powers",
+        genre: "superhero",
+        price: 21.99,
+        rating: 4,
+        badge: null,
+        image: "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "Mystic Realms",
+        author: "Eleanor Frost",
+        genre: "fantasy",
+        price: 32.99,
+        rating: 5,
+        badge: "New",
+        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "Tokyo Nights",
+        author: "Akira Sato",
+        genre: "manga",
+        price: 17.99,
+        rating: 4,
+        badge: "Hot",
+        image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "Space Odyssey 2099",
+        author: "Robert Nova",
+        genre: "scifi",
+        price: 28.99,
+        rating: 5,
+        badge: null,
+        image: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "Dark Shadows",
+        author: "Vincent Black",
+        genre: "horror",
+        price: 23.99,
+        rating: 4,
+        badge: null,
+        image: "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "The Last Detective",
+        author: "Rachel Holmes",
+        genre: "mystery",
+        price: 24.99,
+        rating: 5,
+        badge: "New",
+        image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "Phoenix Rising",
+        author: "Diana Flame",
+        genre: "superhero",
+        price: 26.99,
+        rating: 5,
+        badge: "Hot",
+        image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "Enchanted Forest",
+        author: "Luna Greenwood",
+        genre: "fantasy",
+        price: 30.99,
+        rating: 4,
+        badge: null,
+        image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "Cyber Samurai",
+        author: "Hiroshi Tech",
+        genre: "manga",
+        price: 20.99,
+        rating: 5,
+        badge: "New",
+        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "Crimson Nightmare",
+        author: "Anne Terror",
+        genre: "horror",
+        price: 22.99,
+        rating: 4,
+        badge: "Sale",
+        image: "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "Quantum Heroes",
+        author: "Dr. Stephen Atom",
+        genre: "scifi",
+        price: 31.99,
+        rating: 5,
+        badge: "Hot",
+        image: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "Silent Witness",
+        author: "Thomas Gray",
+        genre: "mystery",
+        price: 23.99,
+        rating: 4,
+        badge: null,
+        image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "Immortal Warriors",
+        author: "Chen Li",
+        genre: "fantasy",
+        price: 29.99,
+        rating: 5,
+        badge: "New",
+        image: "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "Stellar Knights",
+        author: "Captain Nova",
+        genre: "scifi",
+        price: 33.99,
+        rating: 5,
+        badge: "Hot",
+        image: "https://images.unsplash.com/photo-1444080748397-f442aa95c3e5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      },
+      {
+        title: "The Blade Master",
+        author: "Ryuu Takeshi",
+        genre: "manga",
+        price: 19.99,
+        rating: 5,
+        badge: null,
+        image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80"
+      }
+    ];
+
+    // Cart functionality
+    let cartCount = 0;
+    const cartBadge = document.getElementById('cartBadge');
+    const cartIcon = document.getElementById('cartIcon');
+    const accountIcon = document.getElementById('accountIcon');
+    const comicsGrid = document.getElementById('comicsGrid');
+    const genreFilter = document.getElementById('genreFilter');
+    const sortFilter = document.getElementById('sortFilter');
+    const searchInput = document.getElementById('searchInput');
+
+    // Load cart count from localStorage
+    if (localStorage.getItem('cartCount')) {
+      cartCount = parseInt(localStorage.getItem('cartCount'));
+      cartBadge.textContent = cartCount;
+    }
+
+    // Generate star rating
+    function generateStars(rating) {
+      let stars = '';
+      for (let i = 0; i < 5; i++) {
+        stars += i < rating ? '★' : '☆';
+      }
+      return stars;
+    }
+
+    // Get badge class
+    function getBadgeClass(badge) {
+      if (!badge) return '';
+      const badgeLower = badge.toLowerCase();
+      if (badgeLower === 'hot') return 'hot';
+      if (badgeLower === 'rare') return 'rare';
+      if (badgeLower === 'sale') return 'sale';
+      return '';
+    }
+
+    // Create comic card HTML
+    function createComicCard(comic) {
+      const badgeHTML = comic.badge ? `<div class="comic-badge ${getBadgeClass(comic.badge)}">${comic.badge}</div>` : '';
+      
+      return `
+        <div class="comic-card" data-genre="${comic.genre}" data-price="${comic.price}" data-rating="${comic.rating}" data-title="${comic.title.toLowerCase()}">
+          <div class="comic-image">
+            <img src="${comic.image}" alt="${comic.title}">
+            ${badgeHTML}
+          </div>
+          <div class="comic-info">
+            <h3 class="comic-title">${comic.title}</h3>
+            <p class="comic-author">By ${comic.author}</p>
+            <span class="comic-genre">${comic.genre.charAt(0).toUpperCase() + comic.genre.slice(1)}</span>
+            <div class="comic-footer">
+              <span class="comic-price">$${comic.price.toFixed(2)}</span>
+              <span class="comic-rating">${generateStars(comic.rating)}</span>
+            </div>
+            <button class="add-to-cart-btn" onclick="addToCart('${comic.title}', ${comic.price})">Add to Cart</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // Render comics
+    function renderComics(comics) {
+      comicsGrid.innerHTML = comics.map(comic => createComicCard(comic)).join('');
+    }
+
+    // Filter and sort comics
+    function filterAndSortComics() {
+      let filtered = [...comicsData];
+
+      // Genre filter
+      const selectedGenre = genreFilter.value;
+      if (selectedGenre !== 'all') {
+        filtered = filtered.filter(comic => comic.genre === selectedGenre);
+      }
+
+      // Search filter
+      const searchTerm = searchInput.value.toLowerCase();
+      if (searchTerm) {
+        filtered = filtered.filter(comic => 
+          comic.title.toLowerCase().includes(searchTerm) || 
+          comic.author.toLowerCase().includes(searchTerm)
+        );
+      }
+
+      // Sort
+      const sortBy = sortFilter.value;
+      switch(sortBy) {
+        case 'newest':
+          // Keep original order for newest
+          break;
+        case 'price-low':
+          filtered.sort((a, b) => a.price - b.price);
+          break;
+        case 'price-high':
+          filtered.sort((a, b) => b.price - a.price);
+          break;
+        case 'rating':
+          filtered.sort((a, b) => b.rating - a.rating);
+          break;
+      }
+
+      renderComics(filtered);
+    }
+
+    // Add to cart function
+    function addToCart(title, price) {
+      cartCount++;
+      cartBadge.textContent = cartCount;
+      localStorage.setItem('cartCount', cartCount);
+      
+      // Show notification
+      alert(`Added "${title}" ($${price.toFixed(2)}) to cart!`);
+    }
+
+    // Event listeners
+    cartIcon.addEventListener('click', function() {
+      alert(`You have ${cartCount} item(s) in your cart.`);
+    });
+
+    accountIcon.addEventListener('click', function() {
+      alert('Account login functionality would go here!');
+    });
+
+    genreFilter.addEventListener('change', filterAndSortComics);
+    sortFilter.addEventListener('change', filterAndSortComics);
+    searchInput.addEventListener('input', filterAndSortComics);
+
+    // Initial render
+    renderComics(comicsData);
+  </script>
+</body>
+</html>
